@@ -65,6 +65,25 @@ To learn more, see the [8.9.0-alpha1 release notes](/reference/announcements-rel
 
 <div className="release-announcement-row">
 <div className="release-announcement-badge">
+<span className="badge badge--breaking-change">Breaking change</span>
+</div>
+<div className="release-announcement-content">
+
+#### Elasticsearch subchart no longer enabled by default
+
+Previously, the Elasticsearch subchart was enabled by default. To use OpenSearch, you would need to disable Elasticsearch and enable OpenSearch.
+
+With the inclusion of RDBMS, you must now specify the secondary storage you want to enable and use.
+
+:::note
+To continue using Elasticsearch provided as a subchart, you must add `global.elasticsearch.enabled: true` and `elasticsearch.enabled: true` to your `values.yaml`.
+:::
+
+</div>
+</div>
+
+<div className="release-announcement-row">
+<div className="release-announcement-badge">
 <span className="badge badge--new">New</span>
 </div>
 <div className="release-announcement-content">
@@ -79,21 +98,6 @@ Camunda 8.9 adds a standardized JDBC driver management system for manual install
 :::info
 To learn more, see the [8.9.0-alpha1 release notes](/reference/announcements-release-notes/890/890-release-notes.md#jdbc-driver-management-for-rdbms-integrations).
 :::
-
-</div>
-</div>
-
-<div className="release-announcement-row">
-<div className="release-announcement-badge">
-<span className="badge badge--breaking-change">Breaking change</span>
-</div>
-<div className="release-announcement-content">
-
-#### Elasticsearch subchart is no longer enabled by default
-
-Previously, the Elasticsearch subchart would be enabled, and if you want OpenSearch instead, you would disable Elasticsearch and enable OpenSearch. Now with the inclusion of RDBMS instead, we are making it mandatory to specify which secondary storage you want to use, and present them as equally valid options.
-
-If you rely on Elasticsearch provided as a subchart, you will need to add `global.elasticsearch.enabled: true` and `elasticsearch.enabled: true` to your `values.yaml` to continue using it.
 
 </div>
 </div>
