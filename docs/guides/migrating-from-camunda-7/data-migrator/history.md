@@ -71,17 +71,19 @@ into Camunda 8 database models during migration. The History Data Migrator uses 
 
 The following built-in converters handle the transformation of Camunda 7 historic entities:
 
-| Converter                                 | Camunda 7 Entity Type                    | Camunda 8 Model               |
-| ----------------------------------------- | ---------------------------------------- | ----------------------------- |
-| `ProcessInstanceConverter`                | `HistoricProcessInstance`                | `ProcessInstanceDbModel`      |
-| `ProcessDefinitionConverter`              | `ProcessDefinition`                      | `ProcessDefinitionDbModel`    |
-| `FlowNodeConverter`                       | `HistoricActivityInstance`               | `FlowNodeInstanceDbModel`     |
-| `UserTaskConverter`                       | `HistoricTaskInstance`                   | `UserTaskDbModel`             |
-| `IncidentConverter`                       | `HistoricIncident`                       | `IncidentDbModel`             |
-| `VariableConverter`                       | `HistoricVariableInstance`               | `VariableDbModel`             |
-| `DecisionInstanceConverter`               | `HistoricDecisionInstance`               | `DecisionInstanceDbModel`     |
-| `DecisionDefinitionConverter`             | `HistoricDecisionDefinition`             | `DecisionDefinitionDbModel`   |
-| `DecisionRequirementsDefinitionConverter` | `HistoricDecisionRequirementsDefinition` | `DecisionRequirementsDbModel` |
+// TODO add order
+
+| Converter                                   | Camunda 7 Entity Type                    | Camunda 8 Model               |
+| ------------------------------------------- | ---------------------------------------- | ----------------------------- |
+| `ProcessInstanceTransformer`                | `HistoricProcessInstance`                | `ProcessInstanceDbModel`      |
+| `ProcessDefinitionTransformer`              | `ProcessDefinition`                      | `ProcessDefinitionDbModel`    |
+| `FlowNodeTransformer`                       | `HistoricActivityInstance`               | `FlowNodeInstanceDbModel`     |
+| `UserTaskTransformer`                       | `HistoricTaskInstance`                   | `UserTaskDbModel`             |
+| `IncidentTransformer`                       | `HistoricIncident`                       | `IncidentDbModel`             |
+| `VariableTransformer`                       | `HistoricVariableInstance`               | `VariableDbModel`             |
+| `DecisionInstanceTransformer`               | `HistoricDecisionInstance`               | `DecisionInstanceDbModel`     |
+| `DecisionDefinitionTransformer`             | `HistoricDecisionDefinition`             | `DecisionDefinitionDbModel`   |
+| `DecisionRequirementsDefinitionTransformer` | `HistoricDecisionRequirementsDefinition` | `DecisionRequirementsDbModel` |
 
 ### Disabling Built-in Converters
 
@@ -94,7 +96,7 @@ camunda:
   migrator:
     # Entity interceptor configuration
     interceptors:
-      - class-name: io.camunda.migrator.converter.ProcessInstanceConverter
+      - class-name: io.camunda.migrator.interceptor.history.entity.ProcessInstanceTransformer
         enabled: false
 ```
 
@@ -197,7 +199,7 @@ The `enabled` property is supported for all interceptors (both built-in and cust
 ### Execution Order
 
 - Custom interceptors configured in the `application.yml` are executed in their order of appearance from top to bottom
-  - Built-in converters run first, followed by custom interceptors
+  - Built-in transformers run first, followed by custom interceptors
 - In a Spring Boot environment, you can register interceptors as beans and change their execution order with the `@Order` annotation (lower values run first)
 
 ### Error Handling
